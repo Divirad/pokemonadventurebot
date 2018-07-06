@@ -12,7 +12,7 @@ Are you also nostalgic and dream your way back to the time when you played the f
 
 # You are just a user?
 
-Then go to the official [Pokemon Adventure Telegram Bot!](t.me/pokemonadventurebot) and have fun! :)
+Then go to the official [Pokemon Adventure Telegram Bot!](https://t.me/pokemonadventurebot) and have fun! :)
 
 ![](https://img.shields.io/badge/Bot-not%20running-red.svg)
 
