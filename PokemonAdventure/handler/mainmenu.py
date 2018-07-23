@@ -80,8 +80,8 @@ class Menu(Handler):
 
     def daily(self, bot: Bot, update: Update, trainer: Trainer, database: Database):
         """Daily-Menu"""
-        buttons = [[InlineKeyboardButton("Daily Reward", callback_data = str(ButtonId.DAILY_REWARD))],
-                   [InlineKeyboardButton("Donate", callback_data = str(ButtonId.DAILY_DONATE))],
+        # TODO implement link to reward
+        buttons = [[InlineKeyboardButton("Get Reward", callback_data = str(ButtonId.DAILY_REWARD))],
                    [InlineKeyboardButton("⏪ Menu", callback_data = str(ButtonId.MAINMENU))]]
         self.print_sub_menu(bot, update, trainer, "Ⓓ Ⓐ Ⓘ Ⓛ Ⓨ", buttons)
 
