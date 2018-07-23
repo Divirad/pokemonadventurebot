@@ -58,6 +58,8 @@ class ButtonId(Enum):
     MENU_DAILY = auto()
     MENU_INFO = auto()
 
+    DELETE_ACCOUNT = auto()
+
     DAILY_DONATE = auto()
     DAILY_REWARD = auto()
 

@@ -4,7 +4,7 @@ from telegram_utilities.handler import Handler
 from telegram_utilities.registry import Registry
 from typing import List
 
-from errorhandling.errorhandling import delete_message
+from errorhandling.errorhandling import delete_message, not_implemented_yet
 
 from database.db import Database
 from database.Data import all_species
@@ -40,6 +40,8 @@ class Start(Handler):
 
         registry.add_button_handler(ButtonId.YES_RENAME, self.yes_name, [MenuId.CHOOSE_IF_RENAME])
         registry.add_button_handler(ButtonId.NO_RENAME, self.no_name, [MenuId.CHOOSE_IF_RENAME])
+
+        registry.add_button_handler(ButtonId.DELETE_ACCOUNT, not_implemented_yet, [MenuId.MAIN_MENU])
 
         registry.add_message_handler(self.rename, [MenuId.ENTER_NAME]) # MenuId.ENTER_NAME
 
@@ -174,10 +176,13 @@ class Start(Handler):
                                 "But you can send us some crypto with /donate to keep this project alive :) <3")
         trainer.update_values(database, "pokedollar")
 
+    def delete_account(self, bot, update, trainer):
+        pass
+
     def already_registered(self, bot, update, trainer):
         """handles already registered user"""
 
-        buttons = [[InlineKeyboardButton("Delete Your Account", callback_data = str(ButtonId.PROFILE_POKEMON))],
+        buttons = [[InlineKeyboardButton("Delete Your Account", callback_data = str(ButtonId.DELETE_ACCOUNT))],
                    [InlineKeyboardButton("⏪ Menu", callback_data = str(ButtonId.MAINMENU))]]
         markup = InlineKeyboardMarkup(buttons)
         bot.send_message(update.message.chat_id,
