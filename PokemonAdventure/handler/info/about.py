@@ -19,7 +19,7 @@ class About(Handler):
 
     def printtext(self, bot: Bot, update: Update, trainer: Trainer, database: Database):
         delete_message(bot, update)
-        buttons = [[InlineKeyboardButton("⏪ About", callback_data = str(ButtonId.MENU_INFO))]]
+        buttons = [[InlineKeyboardButton("⏪ Info", callback_data = str(ButtonId.MENU_INFO))]]
         markup = InlineKeyboardMarkup(buttons)
         bot.send_message(trainer.id,
 """
