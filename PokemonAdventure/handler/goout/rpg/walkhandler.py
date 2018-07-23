@@ -104,6 +104,8 @@ class WalkAround(Handler):
 
         if actual_tile.type == WAYTYPE.FOREST:
             sticker = Stickerpacks.get_forrestpath(left, right, up, down)
+        elif actual_tile.type == WAYTYPE.CAVE:
+            sticker = Stickerpacks.get_cavepath(left, right, up, down)
 
         markup = self.create_markup(left, right, up, down, interact)
 
