@@ -45,7 +45,7 @@ class Menu(Handler):
                    [InlineKeyboardButton("Daily Reward", callback_data = str(ButtonId.MENU_DAILY))],
                    [InlineKeyboardButton("Information", callback_data = str(ButtonId.MENU_INFO))]]
         markup = InlineKeyboardMarkup(buttons)
-        bot.send_message(trainer.id, "Ⓜ Ⓔ Ⓝ Ⓤ", reply_markup = markup)
+        bot.send_message(trainer.id, "M E N U", reply_markup = markup)
 
     @staticmethod
     def print_sub_menu(bot, update, trainer, menu: str, buttons):
@@ -62,7 +62,7 @@ class Menu(Handler):
                    [InlineKeyboardButton("Bag", callback_data = str(ButtonId.PROFILE_BAG))],
                    [InlineKeyboardButton("Trainer-Card", callback_data = str(ButtonId.PROFILE_TRAINERCARD))],
                    [InlineKeyboardButton("⏪ Menu", callback_data = str(ButtonId.MAINMENU))]]
-        self.print_sub_menu(bot, update, trainer, "Ⓟ Ⓡ Ⓞ Ⓕ Ⓘ Ⓛ Ⓔ", buttons)
+        self.print_sub_menu(bot, update, trainer, "P R O F I L E", buttons)
 
     def gout(self, bot: Bot, update: Update, trainer: Trainer, database: Database):
         """GoOut-Menu"""
@@ -74,7 +74,7 @@ class Menu(Handler):
                    [InlineKeyboardButton("Shop", callback_data = str(ButtonId.GOOUT_SHOP))],
                    [InlineKeyboardButton("Gyms", callback_data = str(ButtonId.GOOUT_GYMS))],
                    [InlineKeyboardButton("⏪ Menu", callback_data = str(ButtonId.MAINMENU))]]
-        self.print_sub_menu(bot, update, trainer, "Ⓖ Ⓞ - Ⓞ Ⓤ Ⓣ", buttons)
+        self.print_sub_menu(bot, update, trainer, "G O - O U T", buttons)
 
         # TODO implement Reward
 
@@ -83,7 +83,7 @@ class Menu(Handler):
         # TODO implement link to reward
         buttons = [[InlineKeyboardButton("Get Reward", callback_data = str(ButtonId.DAILY_REWARD))],
                    [InlineKeyboardButton("⏪ Menu", callback_data = str(ButtonId.MAINMENU))]]
-        self.print_sub_menu(bot, update, trainer, "Ⓓ Ⓐ Ⓘ Ⓛ Ⓨ", buttons)
+        self.print_sub_menu(bot, update, trainer, "D A I L Y", buttons)
 
     def info(self, bot: Bot, update: Update, trainer: Trainer, database: Database):
         """Info-Menu"""
@@ -92,4 +92,4 @@ class Menu(Handler):
                    [InlineKeyboardButton("News", callback_data = str(ButtonId.INFO_NEWS))],
                    [InlineKeyboardButton("Donate", callback_data = str(ButtonId.DAILY_DONATE))],
                    [InlineKeyboardButton("⏪ Menu", callback_data = str(ButtonId.MAINMENU))]]
-        self.print_sub_menu(bot, update, trainer, "Ⓘ Ⓝ Ⓕ Ⓞ Ⓡ Ⓜ Ⓐ Ⓣ Ⓘ Ⓞ Ⓝ Ⓢ", buttons)
+        self.print_sub_menu(bot, update, trainer, "I N F O R M A T I O N S", buttons)

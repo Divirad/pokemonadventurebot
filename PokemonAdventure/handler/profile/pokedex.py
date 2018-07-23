@@ -298,7 +298,7 @@ class PokedexHandler(Handler):
 
     def send_menu(self, bot, trainer):
 
-        bot.send_message(trainer.id, "Ⓟ Ⓞ Ⓚ Ⓔ Ⓓ Ⓔ Ⓧ",
+        bot.send_message(trainer.id, "P O K E D E X",
                          reply_markup =
                          InlineKeyboardMarkup(
                              [[InlineKeyboardButton("Full Entries", callback_data = str(ButtonId.POKEDEX_FLIP))],
