@@ -12,7 +12,6 @@ class Array2d:
 
         self.width = x
         self.heigth = y
-        print(length)
 
         if length is None:
             self.array = list()

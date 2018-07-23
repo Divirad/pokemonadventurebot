@@ -1,10 +1,10 @@
 from threading import Lock
 
-from AtomicInteger import AtomicInteger
-from private import database_passwd, database_user
-from deprecated_decorator import deprecated
-
 import MySQLdb
+
+from AtomicInteger import AtomicInteger
+from deprecated_decorator import deprecated
+from private import database_passwd, database_user
 
 
 class Database(object):
@@ -48,7 +48,7 @@ class Database(object):
         self.dict_cursor = None
         Database.__database_count.dec()
 
-    def __move(self, new: 'database'):
+    def __move(self, new: 'Database'):
         new.db = self.db
         new.cursor = self.cursor
         new.dict_cursor = self.dict_cursor
@@ -84,6 +84,7 @@ class Database(object):
         except MySQLdb.OperationalError:
             self.__close()
             self.__open()
+            raise
 
     def dict_execute(self, query, args=()):
         try:
@@ -91,6 +92,7 @@ class Database(object):
         except MySQLdb.OperationalError:
             self.__close()
             self.__open()
+            raise
 
     def cmd(self, c, p=None):
         if p is None:
