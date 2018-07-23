@@ -5,13 +5,14 @@ dex1 = dex2 = starter = items = itemms = None
 
 def init(bot: Bot):  # bot to get stickerpacks from
     """Inits the Sticker-IDs"""
-    global dex1, dex2, starter, items, forrest
+    global dex1, dex2, starter, items, forrest, cave
     dex1 = bot.get_sticker_set('pokemonadventure')
     dex2 = bot.get_sticker_set('pokemonadventure2')
     starter = bot.get_sticker_set('starteradventure')
     items = bot.get_sticker_set('item4adventure')
 
     forrest = bot.get_sticker_set('forrestpath')
+    cave = bot.get_sticker_set('cavepath')
 
 
 def get_potions(id: int):
@@ -56,7 +57,6 @@ def get_pokemon(id: int):
 def get_forrestpath(left: bool, right: bool, up: bool, down: bool):
     """gets forrest-Path Sticker
     :return: real Sticker"""
-
     if not up and left and not right and not down:
         sticker = get_forrest(0)
     elif not up and not left and right and not down:
@@ -93,20 +93,62 @@ def get_forrestpath(left: bool, right: bool, up: bool, down: bool):
 
     return sticker
 
-
 def get_forrest(id: int):
     """gets forrest-Sticker by ID
     :return: real Sticker"""
     global forrest
     return forrest.stickers[id]
 
+def get_cavepath(left: bool, right: bool, up: bool, down: bool):
+    """gets forrest-Path Sticker
+    :return: real Sticker"""
+    if not up and left and not right and not down:
+        sticker = get_cave(0)
+    elif not up and not left and right and not down:
+        sticker = get_cave(1)
+    elif up and not left and not right and not down:
+        sticker = get_cave(2)
+    elif not up and not left and not right and down:
+        sticker = get_cave(3)
+
+    elif not up and left and right and not down:
+        sticker = get_cave(4)
+    elif up and not left and not right and down:
+        sticker = get_cave(5)
+    elif up and left and not right and not down:
+        sticker = get_cave(6)
+    elif not up and left and not right and down:
+        sticker = get_cave(7)
+    elif up and not left and right and not down:
+        sticker = get_cave(8)
+    elif not up and not left and right and down:
+        sticker = get_cave(9)
+    elif not up and left and right and down:
+        sticker = get_cave(10)
+    elif up and left and not right and down:
+        sticker = get_cave(11)
+    elif up and left and right and not down:
+        sticker = get_cave(12)
+    elif up and not left and right and down:
+        sticker = get_cave(13)
+    elif left and up and down and right:
+        sticker = get_cave(14)
+    else:
+        sticker = get_cave(15)
+
+    return sticker
+
+def get_cave(id: int):
+    """gets forrest-Sticker by ID
+    :return: real Sticker"""
+    global cave
+    return cave.stickers[id]
 
 def get_starter(id: int):
     """gets Starter-Sticker by ID
     :return: real Sticker"""
     global starter
     return starter.stickers[id]
-
 
 def get_item(id: int):
     """gets Item-Sticker by ID
