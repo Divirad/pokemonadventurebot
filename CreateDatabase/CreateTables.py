@@ -102,12 +102,18 @@ def create_tables(cursor):
         looses int DEFAULT 0 NOT NULL,
         lastcatched int DEFAULT NULL,
         game_pos_x int DEFAULT 1 NOT NULL,
-        game_pos_y int DEFAULT 1 NOT NULL,
+        game_pos_y int DEFAULT 0 NOT NULL,
         game_location_id int DEFAULT 1 NOT NULL,
         
         Foreign Key (fight) References pokemonfight(id)
         );
-
+        
+        CREATE TABLE bag(
+        id int NOT NULL PRIMARY KEY,
+        item_id int DEFAULT 0 NOT NULL,
+        count int DEFAULT 0 NOT NULL
+        );
+        
         ALTER TABLE pokemon ADD (
         Foreign key (ownedby) References trainer(id),
         Foreign key (originaltrainer) References trainer(id)
