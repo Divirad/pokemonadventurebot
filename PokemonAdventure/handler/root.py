@@ -1,3 +1,4 @@
+from handler.battle.battle_handler import BattleHandler
 from telegram_utilities.handler import Handler
 from telegram_utilities.registry import Registry
 from typing import List
@@ -18,7 +19,8 @@ class Root(Handler):
                 _rootprofile.RootProfile(),
                 _rootgoout.RootGoOut(),
                 _rootdaily.RootDaily(),
-                _rootinfo.RootInfo()
+                _rootinfo.RootInfo(),
+                BattleHandler()
                 ]
 
     def register(self, registry: Registry):

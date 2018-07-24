@@ -21,5 +21,4 @@ class MenuId(IntEnum):
 
     POKEDEX_SEARCH = auto()
 
-
-
+    BATTLE = auto()
