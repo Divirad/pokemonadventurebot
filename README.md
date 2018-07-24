@@ -69,5 +69,5 @@ You can contribute to this project by cloning the projectfrom our Github reposit
 Of course you can also fork the project and if you think you have an improvement in, then you are welcome to do a pull request. If we like it, we will merge it with the project.
 ## Who do I talk to?
 
-Divirad(c)2017-2018
+Divirad(c) 2017-2018
 
