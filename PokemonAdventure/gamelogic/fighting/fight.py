@@ -43,9 +43,21 @@ class Fight(DBIdObject):
         result.trainer_speed = Fight.calc_stat(trainer_poke.species.speed_base, trainer_poke.speed_dv,
                                                trainer_poke.level)
 
+        result.wild_attack_stage = 0
+        result.wild_defense_stage = 0
+        result.wild_special_stage = 0
+        result.wild_speed_stage = 0
+        result.trainer_attack_stage = 0
+        result.trainer_defense_stage = 0
+        result.trainer_special_stage = 0
+        result.trainer_speed_stage = 0
+
         result.id = result.insert_new(database,
                                       "wildPokemon, trainerPokemon, wild_attack, wild_defense, wild_special,"
-                                      " wild_speed, trainer_attack, trainer_defense, trainer_special, trainer_speed")
+                                      " wild_speed, trainer_attack, trainer_defense, trainer_special, trainer_speed,"
+                                      " wild_attack_stage, wild_defense_stage, wild_special_stage, wild_speed_stage,"
+                                      " trainer_attack_stage, trainer_defense_stage, trainer_special_stage,"
+                                      " trainer_speed_stage")
         return result
 
     def turn_move_wild(self, database, trainer_move):

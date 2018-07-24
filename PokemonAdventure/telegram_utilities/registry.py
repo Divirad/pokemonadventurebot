@@ -1,3 +1,4 @@
+import logging
 from inspect import signature
 
 from telegram import Update, Bot
@@ -8,11 +9,30 @@ from gamelogic.button_id import ButtonId
 from gamelogic.getdata.trainer import Trainer
 from telegram_utilities.base_bot import BaseBot
 
+logger = logging.getLogger(__name__)
+
+ids_in_use = set()
+
+
+def call_with_safe_id(id: int, bot: BaseBot, func, *args, **kwargs):
+    @bot.run_async()
+    def async_call():
+        try:
+            func(*args, **kwargs)
+        finally:
+            ids_in_use.remove(id)
+
+    if id not in ids_in_use:  # only used on one thread therefor no lock needed
+        ids_in_use.add(id)
+        async_call()
+    else:
+        logger.info("Ignored update for id %d" % id)
+
 
 class Registry:
     def __init__(self):
         self.commandHandlers = {}  # key: command,   value: { key: menu_id, value: func }
-        self.buttonHandlers = {}   # key: button_id, value: { key: menu_id, value: func }
+        self.buttonHandlers = {}  # key: button_id, value: { key: menu_id, value: func }
         self.messageHandlers = {}  # key: menu_id,   value: func
 
     @staticmethod
@@ -63,13 +83,12 @@ class Registry:
 
     def create_telegram_handler(self, bot: BaseBot):
         for command, cmd_handlers in self.commandHandlers.items():
-            @bot.run_async()
-            def handle(bot_p: Bot, update: Update, _cmd_handlers=cmd_handlers):
+            def handle(bot_p: Bot, update: Update, _cmd_handlers):
                 with Database() as database:
                     trainer = Trainer(update.message.from_user.id)
                     menu_id = None
                     if trainer.does_exist(database):
-                        trainer.load_values(values = "menu_id", database = database)
+                        trainer.load_values(values="menu_id", database=database)
                         menu_id = trainer.menu_id
                     if menu_id not in _cmd_handlers:
                         return
@@ -79,9 +98,12 @@ class Registry:
                         func(bot_p, update, trainer, database)
                 if not use_db:
                     func(bot_p, update, trainer)
-            bot.updater.dispatcher.add_handler(CommandHandler(command, handle))
 
-        @bot.run_async()
+            def handle_safe(bot_p: Bot, update: Update, _bot=bot, _cmd_handlers=cmd_handlers):
+                call_with_safe_id(update.message.from_user.id, _bot, handle, bot_p, update, _cmd_handlers)
+
+            bot.updater.dispatcher.add_handler(CommandHandler(command, handle_safe))
+
         def button_handle(bot_p: Bot, update: Update):
             id = ButtonId.from_string(update.callback_query.data)
             if id not in self.buttonHandlers:
@@ -92,7 +114,7 @@ class Registry:
 
                 menu_id = None
                 if trainer.does_exist(database):
-                    trainer.load_values(values = "menu_id", database = database)
+                    trainer.load_values(values="menu_id", database=database)
                     menu_id = trainer.menu_id
                 if menu_id not in bttn_handlers:
                     return
@@ -103,15 +125,17 @@ class Registry:
             if not use_db:
                 func(bot_p, update, trainer)
 
-        bot.updater.dispatcher.add_handler(CallbackQueryHandler(button_handle))
+        def button_handle_safe(bot_p: Bot, update: Update, _bot=bot):
+            call_with_safe_id(update.callback_query.from_user.id, _bot, button_handle, bot_p, update)
 
-        @bot.run_async()
+        bot.updater.dispatcher.add_handler(CallbackQueryHandler(button_handle_safe))
+
         def message_handle(bot_p: Bot, update: Update):
             with Database() as database:
                 trainer = Trainer(update.message.from_user.id)
                 menu_id = None
                 if trainer.does_exist(database):
-                    trainer.load_values(values = "menu_id", database = database)
+                    trainer.load_values(values="menu_id", database=database)
                     menu_id = trainer.menu_id
                 if menu_id not in self.messageHandlers:
                     return
@@ -122,4 +146,7 @@ class Registry:
             if not use_db:
                 func(bot_p, update, trainer)
 
-        bot.updater.dispatcher.add_handler(MessageHandler(Filters.text, message_handle))
+        def message_handle_safe(bot_p: Bot, update: Update, _bot=bot):
+            call_with_safe_id(update.message.from_user.id, _bot, message_handle, bot_p, update)
+
+        bot.updater.dispatcher.add_handler(MessageHandler(Filters.text, message_handle_safe))

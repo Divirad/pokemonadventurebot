@@ -5,6 +5,7 @@ from base64 import b64encode
 
 ID_LENGTH = 3
 
+
 @unique
 class ButtonId(Enum):
     def _generate_next_value_(name, start, count, last_values):
@@ -35,7 +36,7 @@ class ButtonId(Enum):
     CHOOSE_SQUIRTLE = CHOOSE_STARTER + "6"
     CHOOSE_BULBASAUR = CHOOSE_STARTER + "0"
 
-    NONE = "___"
+    NONE = auto()
 
     YES_RENAME = auto()
     NO_RENAME = auto()
@@ -99,3 +100,16 @@ class ButtonId(Enum):
     SHOP_POTIONS_MIN = SHOP_POTIONS + "min"
     SHOP_POTIONS_PLS = SHOP_POTIONS + "pls"
     SHOP_POTIONS_BUY = auto()
+
+    BATTLE_MENU_FIGHT = auto()
+    BATTLE_MENU_POKEMON = auto()
+    BATTLE_MENU_ITEMS = auto()
+    BATTLE_MENU_RUN = auto()
+    BATTLE_MENU_MOVE = auto()
+    BATTLE_MENU_NEW_POKEMON = auto()
+    BATTLE_MENU_BACK = auto()
+
+    TEST1 = auto()
+    TEST2 = auto()
+    TEST3 = auto()
+    TEST4 = auto()

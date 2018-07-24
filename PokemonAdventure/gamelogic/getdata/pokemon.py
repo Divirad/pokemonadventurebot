@@ -180,4 +180,8 @@ class Pokemon(DBIdObject):
         else:
             setattr(self, name, value)
 
+    def get_move(self, i: int):
+        return getattr(self, "move%d" % i)
+
+
 from gamelogic.getdata import trainer

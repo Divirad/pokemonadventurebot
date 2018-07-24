@@ -73,12 +73,13 @@ class Trainer(DBIdObject):
 
     def get_attribute(self, name):
         if name == "fight":
-            return self.fight.id
+            return self.fight.id if self.fight is not None else None
         else:
             return getattr(self, name)
 
     def get_menu_id(self):
         return self.menu_id
+
     # noinspection PyAttributeOutsideInit
     def set_attribute(self, name, value):
         if name == "fight":
